@@ -46,8 +46,10 @@
 
     const quoteDisplay = document.getElementById('quote');
     const messageDisplay = document.getElementById('message');
+    const startButton = document.getElementById('start');
+    const currentWordTextbox = document.getElementById('current-word');
 
-    document.getElementById('start').addEventListener('click', function (e) {
+    startButton.addEventListener('click', function (e) {
         // get a quote
         const quoteIndex = Math.floor(Math.random() * quotes.length);
 
@@ -65,8 +67,7 @@
             .map(function (word) { return `<span>${word}</span>`; })
             .join('');
 
-        // reset the indexes for tracking
-        quoteLetterIndex = 0;
+        // reset the word index for tracking
         wordIndex = 0;
 
         // Clear any prior messages
@@ -76,32 +77,29 @@
         highlightWord(wordIndex);
 
         // Clear the textbox
-        document.getElementById('current-word').val = '';
+        currentWordTextbox.val = '';
         // set focus
-        document.getElementById('current-word').focus();
+        currentWordTextbox.focus();
 
         // Start the timer
         startTime = new Date().getTime();
     });
 
-    document.getElementById('current-word').addEventListener('input', function (e) {
-        // grab the textbox (better state management)
-        const textBox = e.target;
-
+    currentWordTextbox.addEventListener('input', function (e) {
         // Get the current word
         const currentWord = words[wordIndex];
 
         // Get the current text
-        const currentText = textBox.value;
+        const currentText = currentWordTextbox.value;
 
         // check if what they've typed is correct
         if (currentWord.startsWith(currentText)) {
-            textBox.className = '';
+            currentWordTextbox.className = '';
 
             // check if we've reached the end of the word
             if (currentText === currentWord) {
-                // clear the textbox for the new word
-                textBox.value = '';
+                // clear the currentWordTextbox for the new word
+                currentWordTextbox.value = '';
 
                 // move to the next word
                 wordIndex++;
@@ -118,7 +116,7 @@
                 }
             }
         } else {
-            textBox.className = 'error';
+            currentWordTextbox.className = 'error';
         }
     });
 
