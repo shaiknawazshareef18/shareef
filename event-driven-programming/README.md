@@ -14,9 +14,7 @@ You're going to use the JavaScript, HTML and CSS skills you have built up so far
 
 As the user types, the current word will be highlighted on the quote. When the user completes the word (indicated by clicking the space bar) it will disappear from the textbox and the next word will be highlighted. Upon correct completion of the quote, the game will display the elapsed time.
 
-<video controls width="320" height="240" >
-  <source src="../demo.mp4" type="video/mp4">
-</video>
+![demo](../demo.gif)
 
 ### Prerequisites
 
