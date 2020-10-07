@@ -2,8 +2,6 @@
 
 ![video](video-url)
 
-[slides](slides.pptx)
-
 ## [Pre-lecture quiz](.github/pre-lecture-quiz.md)
 
 ### Introduction
@@ -174,7 +172,7 @@ TODO: flesh out the code sample here
 
 ---
 
-🚀Challenge: TODO add a challenge here to enhance the game
+🚀 Challenge: TODO add a challenge here to enhance the game
 
 ## [Post-lecture quiz](.github/post-lecture-quiz.md)
 
@@ -182,6 +180,7 @@ TODO: flesh out the code sample here
 
 TODO: closing statement, reference list
 
-**Assignment Due [MM/YY]**: [Assignment Name](assignment.md)
+TODO: Assignment
+**Assignment**: [Assignment Name](assignment.md)
 
 
