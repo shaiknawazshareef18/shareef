@@ -114,7 +114,7 @@ Create `const` variables in the JavaScript file to store the elements we're usin
 
 ## Using `document`
 
-When working with JavaScript in the browser you will have access to [document](https://developer.mozilla.org/docs/Web/API/Document). By using the `document` object you can access all items on the page. With `document` you can make whatever modifications you wish to make to the structure of the HTML page. At a higher level, the `document` object allows you to use the [Document Object Model or DOM](https://developer.mozilla.org/docs/Web/API/Document_Object_Model). Fortunately we don't need to know everything about the DOM; knowing just a couple of key functions and properties will give you quite a bit of power.
+When working with JavaScript in the browser you will have access to [document](https://developer.mozilla.org/docs/Web/API/Document). By using the `document` object you can access all items on the page. With `document` you can make whatever modifications you wish to make to the structure of the HTML page. At a higher level, the `document` object allows you to use the [Document Object Model or DOM](https://developer.mozilla.org/docs/Web/API/Document_Object_Model). Fortunately we don't need to know everything about the DOM; knowing a couple of key functions and properties will give you quite a bit of power.
 
 ✅ TODO: knowledge check on `document` based on reading above
 
@@ -132,13 +132,13 @@ TODO: set up the elements retrieval
 
 ## Event listeners
 
-When creating an interactive HTML page you will typically use a methodology called [event-driven programming](https://en.wikipedia.org/wiki/Event-driven_programming). Event-driven programming allows us to create code which runs when an event happens. What's an event? Well, basically everything which happens when the user is interacting with the page!
+When creating an interactive HTML page you will typically use a methodology called [event-driven programming](https://en.wikipedia.org/wiki/Event-driven_programming). Event-driven programming allows us to create code which runs when an event happens. What's an event? Well, it's everything that happens when the user is interacting with the page!
 
 ✅ TODO: knowledge check on event-driven programming based on reading above
 
 If we think about the game we're creating, the user is going to click on the start button and type in the textbox. We don't know when they're going to perform those actions, in what order they'll do them in, or even if they'll do them at all! This means we need to tell the browser, "Hey - I don't know when this is going to happen, but when the user clicks on this button I need you to run this code for me."
 
-In more technical terms, we tell the browser what code we want to run by "registering an event listener". An event listener (sometimes called handler) is a function which runs in response to the event. You'll notice there's a [long list of events](https://developer.mozilla.org/docs/Web/Events) which could be raised by a page. But fear not! Just like `document`, we don't need to know all of the events which could be raised!
+In more technical terms, we tell the browser what code we want to run by "registering an event listener". An event listener (sometimes called handler) is a function which runs in response to the event. You'll notice there's a [long list of events](https://developer.mozilla.org/docs/Web/Events) which could be raised by a page. But don't worry! Like `document`, you don't need to know all of the events that could be raised!
 
 Let's talk about our game and the flow. We know the user is going to click on the start button to start the game, and then type in the textbox when they're typing out the quote. As a result, we're going to need to register two event listeners. Event listeners are placed on the elements the user will be interacting with - the button and textbox in our case.
 
