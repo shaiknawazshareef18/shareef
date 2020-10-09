@@ -34,10 +34,10 @@ document.getElementById('start').addEventListener('click', function () {
 	const spanWords = words.map(function(word) { return `<span>${word} </span>`});
 	// Convert into string and set as innerHTML on quote display
 	quoteElement.innerHTML = spanWords.join('');
+	// Highlight the first word
+	quoteElement.childNodes[0].className = 'highlight';
 	// Clear any prior messages
 	messageElement.innerText = '';
-	// Highlight the first word
-	messageElement.childNodes[0].className = 'highlight';
 
 	// Setup the textbox
 	// Clear the textbox
