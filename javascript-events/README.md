@@ -238,6 +238,16 @@ Previously we learned about We're going to apply that knowledge to create our ev
 
 **-1- When the user clicks start**  
 
+> Tip, use the event handler for the start button and place the below code inside of it:
+
+   ```javascript
+   document
+     .getElementById('<id of element>')
+     .addEventListener('click', function () {
+       // add user clicks start logic here
+     })
+   ```
+
 When the user clicks start, you'll encode logic to do the following:
 
 1. **Select a quote**. Randomly select a quote from the array.
@@ -293,6 +303,16 @@ When the user clicks start, you'll encode logic to do the following:
    ```
 
 **-2- As the user types**
+
+> Tip, place the below code in the event handler for the `input` event of the text element, like so:
+
+   ```javascript
+   document
+     .getElementById('<id of text element>')
+     .addEventListener('input', (e) => {
+          // implement logic
+     })
+   ``` 
 
 As each character is typed, you'll run the following game logic:
 
