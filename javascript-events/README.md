@@ -316,7 +316,7 @@ When the user clicks start, you'll encode logic to do the following:
 
 As each character is typed, you'll run the following game logic:
 
-1. **Get curent word from quote**. Retrieve the current word from the sentence.
+1. **Get current word from quote**. Retrieve the current word from the sentence.
 
    ```javascript
    const currentWord = words[wordIndex];
