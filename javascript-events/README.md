@@ -89,182 +89,240 @@ If you put this into a code editor and test in a browser, or [explore it on a Co
 
 ## Build the game
 
-# Create the user interface
+Build this game in the following steps:
 
-## HTML task
+1. **Create the user interface**. The user interface will be built in HTML.
+1. **Add styling**. You will add CSS styling to specific elements to indicate certain states in the game.
+1. **Create the game**. Implement the Game rules.
+
+### Create the user interface
 
 Based on your experience with HTML, create a page with the following items:
 
-- `h2` element for displaying the quote named `quote`
-- `h2` element for displaying any messages named `message`
-- Label and textbox for the user to use to type in the current word
-- Set the ID of the textbox to be `typed-value`
-- Button the user will use to click to start the game
-- Set the ID of the button to be `start`
+> Tip, ensure you are adding the below elements to the `body` tag of your _index.html_ page.
 
-## CSS task
+1. Create a `h2` element for displaying the quote named `quote`:
 
-Based on your experience with CSS, create a stylesheet with the following items:
+   ```html
+   <h2 id="quote"></h2>
+   ```
+- Create a `h2` element for displaying any messages named `message`:
 
-- Class named `highlight` which will be used for the current word with `background-color` as yellow
-- Class named error which will be used to color the textbox when the typed word is incorrect with `background-color` as `lightcoral` and `border` as `red`
+   ```html
+   <h2 id="message"></h2>
+   ```
 
-> Make sure you reference the stylesheet from the HTML page
+- Create a textbox for the user to use to type in the current word:
 
-> Feel free to add any other headers and fun displays you might want to make your page look fun!
+   ```html
+   <div>
+     <input type="text" id="typed-value" />
+   </div>
+   ```
 
-## JavaScript task
+   Set the ID of the textbox to be `typed-value`
 
-Based on your experience with JavaScript, create a JavaScript file with the following items:
+- Add a Button the user will use to click to start the game:
 
-- An array with all `quotes` [see: quotes list](#quotes)
+   ```html
+   <div>
+     <button id="start" type="button">Start</button>
+   </div>
+   ```
+
+   Set the ID of the button to be `start`
+
+### Add styling
+
+Based on your experience with CSS, create a stylesheet, file called _index.css_ with the following items:
+
+- Create a CSS class named `highlight` which will be used for the current word with `background-color` as yellow:
+
+   ```css
+   .highlight {
+     background-color: yellow;
+   }
+   ```
+
+- Add another CSS class named `error`:
+
+   ```css
+   .error {
+     background-color: lightcoral;
+     border-color: red;
+   }
+   ```
+
+   which will be used to color the textbox when the typed word is incorrect with `background-color` as `lightcoral` and `border` as `red`
+
+   > Make sure you reference the stylesheet from the HTML page
+
+   > Feel free to add any other headers and fun displays you might want to make your page look fun!
+
+### Implement game rules using JavaScript
+
+Based on your experience with JavaScript, create a JavaScript file _index.js_.
+
+**-1- Create the following variables**
+
+- An array with all `quotes`:
+
+   ```javascript
+   const quotes = [
+	'When you have eliminated the impossible, whatever remains, however improbable, must be the truth.',
+	'There is nothing more deceptive than an obvious fact.',
+	'I ought to know by this time that when a fact appears to be opposed to a long train of deductions it invariably proves to be capable of bearing some other interpretation.',
+	'I never make exceptions. An exception disproves the rule.',
+	'What one man can invent another can discover.',
+	'Nothing clears up a case so much as stating it to another person.',
+	'Education never ends, Watson. It is a series of lessons, with the greatest for the last.',
+   ];
+   ```
+
 - An empty array for all of the `words`
+
+   ```javascript
+   let words = [];
+   ```
+
 - A marker of the index (or location) of the current word in the quote called `wordIndex` set to `0`
-- The time the user started the challenge called `startTime` set to the current time
+
+   ```javascript
+   let wordIndex = 0;
+   ```
+
+- The time the user started the challenge called `startTime` set to the current time:
+
+   ```javascript
+   let startTime = Date.now();
+   ```
+
 - Constants for the UI elements we'll be using
   - `quoteElement` for `quote`
   - `messageElement` for `message`
   - `typedValueElement` for `typed-value`
 
-> Make sure you reference the JavaScript file from the HTML page
+   ```javascript
+   const quoteElement = document.getElementById('quote');
+   const messageElement = document.getElementById('message')
+   const typedValueElement = document.getElementById('typed-value');
+   ```
 
-> Use `let`, `const` and `var` as appropriate
+   > Make sure you reference the JavaScript file from the HTML page
 
-✅ TODO: knowledge check on using `const`
+   > Use `let`, `const` and `var` as appropriate
 
-## Create event handler for start
+**Setup event handlers**
 
-With the scaffolding of the application complete, let's turn our attention to creating the [event handler for start](2-start.md).
+Previously we learned about We're going to apply that knowledge to create our events and add the logic.
 
-## Quotes
+   1. **Handle start button clicked**. Create an event listener to handle the `click` event for the start button.
 
-```javascript
-quotes = [
-    'When you have eliminated the impossible, whatever remains, however improbable, must be the truth.',
-    'There is nothing more deceptive than an obvious fact.',
-    'I ought to know by this time that when a fact appears to be opposed to a long train of deductions it invariably proves to be capable of bearing some other interpretation.',
-    'I never make exceptions. An exception disproves the rule.',
-    'What one man can invent another can discover.',
-    'Nothing clears up a case so much as stating it to another person.',
-    'Education never ends, Watson. It is a series of lessons, with the greatest for the last.',
-];
-```
+      ```javascript
+      document
+        .getElementById('<id of element>')
+        .addEventListener('click', function () {
+         // add logic
+      })
+      ```
 
-# Adding start event listener
+   1. **Handle text element changed**. Create an event listener to handle the `input` element for text input element:
 
-Previously we learned about [event driven programming](../javascript-events/README.md). We're going to apply that knowledge to create our events and add the logic.
+      ```javascript
+      document
+        .getElementById('<id of text element>')
+        .addEventListener('input', (e) => {
+          // implement logic
+        })
+      ```
 
-## Create event listener
+**-1- When the user clicks start**  
 
-The first event listener you need is when someone clicks on the `start` button.
+When the user clicks start, you'll encode logic to do the following:
 
-> **TASK**: Create an event listener to handle this event.
+1. **Select a quote**. Randomly select a quote from the array.
 
-## Add logic to listener to setup quote
+   ```javascript
+   const quoteIndex = Math.floor(Math.random() * quotes.length);
+   const quote = quotes[quoteIndex];
+   ```
 
-The first thing we need to do is [create a random number](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Math/random) to be the index of the quote we'll select from `quotes`. Our number needs to be between 0 and one less than the length of the array. (Remember, counting starts with zero).
+- **Create span element for each word**. Surround each word in the quote with a `span` element (the `span` element will allow us to apply a class to highlight it)
 
-> **TASK**: Add the necessary code **to the event listener** to create the random number and retrieve the item from the array using the index.
+   ```javascript
+   words = quote.split(' ');
+   const spanWords = words.map(function(word) { return `<span>${word} </span>`});
+   ```
 
-## Split the words from the quote into an array
+- **Indicate what word is being typed**. Set a counter for the current word so we know what the user is typing
 
-We will be using `words` to store an array containing all words in the quote. In English, all words are separated by a space, so we can use `split` to convert the quote into an array of words. We also need to ensure the current `wordIndex` is set to `0` since a new game is starting.
+   ```javascript
+   wordIndex = 0;
+   ```
 
-> **TASK**: Add the necessary code **to the event listener** to `split` the words from the quote into an array; store the result in `words`. Set `wordIndex` to `0`.
+- **Show the quote**. Display the quote at the top of the screen.
 
-## Update the UI
+   ```javascript
+   const quoteElement = document.getElementById('quote');
+   quoteElement.innerHTML = spanWords.join('');
+   ```
 
-One of the requirements of the game is to highlight the word the user is currently working on. The best way to do this is by using `span` elements. We want to create a collection of `span` elements containing all of the various words, and display them in the `quote` element we setup in our HTML page.
+- **Highlight the first word**. Highlight the first word in the quote.
 
-At present, we have the words of the quote in an array called `words`. We cay use [map](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Array/map) to create a new array with all words inside `span` elements. We can then [join](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Array/join) them together to create a string. Finally, we can display it inside the `quote` element by using [innerHTML](https://developer.mozilla.org/docs/Web/API/Element/innerHTML). We'll finish by highlighting the first child node in `message` by setting the `className` to `highlight`.
+   ```javascript
+   quoteElement.childNodes[0].className = 'highlight';
+   ```
 
-```javascript
-const spanWords = words.map(function(word) { return `<span>${word} </span>`});
-// Convert into string and set as innerHTML on quote display
-quoteElement.innerHTML = spanWords.join('');
-// Clear any prior messages
-messageElement.innerText = '';
-// Highlight the first word
-messageElement.childNodes[0].className = 'highlight';
-```
+- **Prepare textbox for input**.
+   1. Clear the textbox
 
-> **TASK**: Do something
+      ```javascript
+      typedValueElement.value = '';
+      ```
 
-## Setup the textbox
+   1. Set focus (so the user can start typing right away)
 
-The user will be typing into the `typedValueElement` textbox during the game. When they click start we want to ensure there's no `value` in the textbox by setting it to `''`. We also want to ensure it has `focus`.
+      ```javascript
+      typedValueElement.focus();
+      ```
 
-Finally, an event listener needs to be added for new characters being `input`. A little later will create a function called `checkWord`, but for the time being we can still add the code for `addEventListener`.
+- **Start measuring time**. Get the current time from the `Date` object to start timing.
 
-> **TASK**: Add the necessary code **to the event listener** to clear the `value` of `typedValueElement` and ensure it has `focus`. Add an event listener for the `input` event which will call `checkWord`.
+   ```javascript
+   startTime = new Date().getTime();
+   ```
 
-> **NOTE**: You may see an error message displayed in your code editor saying `checkWord` does not exist. Don't worry; we'll create this in just a little while.
+**-2- As the user types**
 
-## Start the timer
+As each character is typed, you'll run the following game logic:
 
-We're just about ready to start the game. Let's set `startTime` to the current time to begin the timer.
+1. **Get curent word from quote**. Retrieve the current word from the sentence.
 
-> **TODO**: Add the necessary code **to the event listener** to set `startTime` to the current time.
+   ```javascript
+   const currentWord = words[wordIndex];
+   ```
 
-## Create event listener for input
+1. **Retrieve typed word**. Retrieve the value in the textbox.
 
-We need [one more event listener for input](3-input.md) to capture keystrokes.
+   ```javascript
+   const typedValue = typedValueElement.value;
+   ```
 
-# Adding the input event listener
+- **Check status**. Check the current status:
 
-The [input](https://developer.mozilla.org/docs/Web/API/HTMLElement/input_event) event is raised every time the user hits a key on their keyboard. This is perfect for us as it will allow us to ensure whatever they've typed thus far is correct.
+   > Tip, compare `typedValue` with `currentWord`
 
-In the event listener, we are going to grab the current word and whatever the user has typed thus far. We'll then check if they've completed the sentence, completed the word, are in progress of typing the word correctly, or have made a mistake.
-
-Let's start by adding an event listener for input.
-
-> **TASK**: Add the event listener for `input` for `typedValueElement` element.
-
-## Getting the current values
-
-First thing's first. Let's grab the current word from the active quote, and the value the user has typed thus far.
-
-> **TASK**: **In the event listener**, add the code to:
->
-> - Retrieve the current word from `words` by using `wordIndex` (which tracks the index of the current word) and store it in a variable called `currentWord`
-> - Retrieve the `value` from `typedValueElement` and store it in a variable called `typedValue`
-
-## Check if the quote is complete
-
-We are going to create a series of `if` statements to figure out where the user is in the game. The first step is to see if the sentence is complete. We can do this by checking if `typedValue` is equal to `currentWord`, and if `wordIndex` is equal to one less than the `length` of `quote`.
-
-If the condition matches the criteria, we can perform the following actions:
-
-- Calculate the `elapsedTime` by subtracting `startTime` from the current time
-- Display a message in `messageElement` showing congratulations for the user and the number of seconds they took
-
-> **TASK**: **In the event listener**, add the code to implement the logic listed above.
-
-## Check if the current word is complete
-
-Next we'll add an `else if` statement to see if the current word is complete (we know the quote is still in progress). Because spaces separate words in English we can look to see if `typedValue` `endsWith` a space. If it does, we can then `trim` `typedValue` (because the word itself does not contain a space) and see if it is equal to `currentWord`. If it does we can then setup the next word by performing the following actions:
-
-- Reset `typedElement`'s `value` to `''`
-- Increment `wordIndex`
-- Loop through all `childNodes` in `quoteElement` and set each `childNode`'s `className` to `''`
-- Set the `className` of `childNode` in `quoteElement` of the current `wordIndex` to `highlight`
-
-> **TASK**: **In the event listener**, add the code to implement the logic listed above.
-
-## Check if the typed value is correct
-
-At this point we know neither the quote nor word are complete. Let's see if what the user has typed thus far on the word is correct. We'll add another `else if` statement to see if `currentWord` `startsWith` `typedValue`. If it does, we'll set the `className` of `typedValueElement` to be `''`, which would remove any error markings it might have.
-
-> **TASK**: **In the event listener**, add the code to implement the logic listed above.
-
-## And finally, we have an error state
-
-If we've made it this far we know the quote is not complete, the word is not complete, and the currently typed value is incorrect. This means the user has typed in an incorrect value. We need to add an `else` statement to set `typedValueElement`'s `className` to be `error`.
-
-> **TASK**: **In the event listener**, add the code to implement the logic listed above.
+   1. Last word completed
+      - Display success message and elapsed time
+   1. Current word completed (indicated by a space)
+      - Clear the textbox
+      - Update the index
+      - Highlight the next word
+   1. Current word in progress and correct
+      - Ensure textbox is shown as normal
+   1. Current word in progress is incorrect
+      - Highlight textbox as red
 
 ## Test your application
 
 You've made it to the end! The last step is to ensure our application works. Give it a shot! Don't worry if there are errors; **all developers** have errors. Examine the messages and debug as needed.
-
-
