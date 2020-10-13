@@ -15,11 +15,17 @@ let wordIndex = 0;
 // default value for startTime (will be set on start)
 let startTime = Date.now();
 
+// grab UI items
+const quoteElement = document.getElementById('quote');
+const messageElement = document.getElementById('message')
+const typedValueElement = document.getElementById('typed-value');
+
 document.getElementById('start').addEventListener('click', function () {
 	// get a quote
 	const quoteIndex = Math.floor(Math.random() * quotes.length);
+	const quote = quotes[quoteIndex];
 	// Put the quote into an array of words
-	words = quotes[quoteIndex].split(' ');
+	words = quote.split(' ');
 	// reset the word index for tracking
 	wordIndex = 0;
 
@@ -27,57 +33,53 @@ document.getElementById('start').addEventListener('click', function () {
 	// Create an array of span elements so we can set a class
 	const spanWords = words.map(function(word) { return `<span>${word} </span>`});
 	// Convert into string and set as innerHTML on quote display
-	document.getElementById('quote').innerHTML = spanWords.join('');
-	// Clear any prior messages
-	document.getElementById('message').innerText = '';
+	quoteElement.innerHTML = spanWords.join('');
 	// Highlight the first word
-	highlightWord(wordIndex);
+	quoteElement.childNodes[0].className = 'highlight';
+	// Clear any prior messages
+	messageElement.innerText = '';
 
+	// Setup the textbox
 	// Clear the textbox
-	document.getElementById('current-word').value = '';
+	typedValueElement.value = '';
 	// set focus
-	document.getElementById('current-word').focus();
+	typedValueElement.focus();
 	// set the event handler
-	document.getElementById('current-word').addEventListener('input', checkWord)
 
 	// Start the timer
 	startTime = new Date().getTime();
 });
 
-function checkWord(e) {
+typedValueElement.addEventListener('input', (e) => {
 	// Get the current word
 	const currentWord = words[wordIndex];
 	// get the current value
-	const currentValue = e.target.value;
+	const typedValue = typedValueElement.value;
 
-	if (currentValue === currentWord && wordIndex === words.length - 1) {
+	if (typedValue === currentWord && wordIndex === words.length - 1) {
 		// end of sentence
+		// Display success
 		const elapsedTime = new Date().getTime() - startTime;
 		const message = `CONGRATULATIONS! You finished in ${elapsedTime / 1000} seconds.`;
-		// Display success
-		document.getElementById('message').innerText = message;
-		// remove the handler
-		e.target.removeEventListener('input', checkWord);
-	} else if (currentValue.endsWith(' ') && currentValue.trim() === currentWord) {
-		// end of word?
-		// clear the currentWordTextbox for the new word
-		e.target.value = '';
+		messageElement.innerText = message;
+	} else if (typedValue.endsWith(' ') && typedValue.trim() === currentWord) {
+		// end of word
+		// clear the typedValueElement for the new word
+		typedValueElement.value = '';
 		// move to the next word
 		wordIndex++;
-		highlightWord(wordIndex);
-	} else if (currentWord.startsWith(currentValue)) {
+		// reset the class name for all elements in quote
+		for (const wordElement of quoteElement.childNodes) {
+			wordElement.className = '';
+		}
+		// highlight the new word
+		quoteElement.childNodes[wordIndex].className = 'highlight';
+	} else if (currentWord.startsWith(typedValue)) {
 		// currently correct
 		// highlight the next word
-		e.target.className = '';
+		typedValueElement.className = '';
 	} else {
 		// error state
-		e.target.className = 'error';
+		typedValueElement.className = 'error';
 	}
-}
-
-function highlightWord(wordIndex) {
-	for (const wordElement of document.getElementById('quote').childNodes) {
-		wordElement.className = '';
-	}
-	document.getElementById('quote').childNodes[wordIndex].className = 'highlight';
-}
+});
