@@ -12,7 +12,7 @@ As the user types, the current word will be highlighted on the quote. When the u
 
 # Lesson
 
-[Event-Driven Programming](./event-driven-programming/README.md)
+[Event-Driven Programming](./javascript-events/README.md)
 
 # Credits
 
