@@ -1,6 +1,6 @@
 # Event-Driven Programming - Build a Typing Game
 
-### Introduction
+## Introduction
 
 Typing is one of the most underrated skills of the developer. The ability to quickly transfer thoughts from your head to your editor allows creativity to flow freely. One of the best ways to learn is to play a game! So, let's build a typing game!
 
@@ -10,10 +10,10 @@ As the user types, the current word will be highlighted on the quote. When the u
 
 ![demo](demo.gif)
 
-# Lesson
+## Lesson
 
-[Event-Driven Programming](./event-driven-programming/README.md)
+[Event-Driven Programming](./project/README.md)
 
-# Credits
+## Credits
 
 Written with ♥️ by [Christopher Harrison](http://www.twitter.com/geektrainer)

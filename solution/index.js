@@ -57,7 +57,7 @@ typedValueElement.addEventListener('input', (e) => {
 	const typedValue = typedValueElement.value;
 
 	if (typedValue === currentWord && wordIndex === words.length - 1) {
-		// end of sentence
+		// end of quote
 		// Display success
 		const elapsedTime = new Date().getTime() - startTime;
 		const message = `CONGRATULATIONS! You finished in ${elapsedTime / 1000} seconds.`;
