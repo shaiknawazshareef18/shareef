@@ -1,10 +1,12 @@
-# Events
+# Creating a game using events
 
 ![video](video-url)
 
 [slides](slides.pptx)
 
 ## TODO: Quiz
+
+## Event driven programming
 
 When creating a browser based application, we provide a graphical user interface (GUI) for the user to use when interacting with what we've built. The most common way to interact with the browser is through clicking and typing in various elements. The challenge we face as a developer is we don't know when they're going to perform these operations!
 
@@ -16,7 +18,16 @@ To handle events (button clicking, typing, etc.), we register **event listeners*
 
 > **NOTE:** It's worth highlighting there are numerous ways to create event listeners. You can use anonymous functions, or create named ones. You can use various shortcuts, like setting the `click` property, or using `addEventListener`. In our exercise we are going to focus on `addEventLister` and anonymous functions, as it's probably the most common technique web developers use. It's also the most flexible, as `addEventListener` works for all events, and the event name can be provided as a parameter.
 
-## Our scenario
+### Common events
+
+There are [dozens of events](https://developer.mozilla.org/docs/Web/Events) available for you to listen to when creating an application. Basically anything a user does on a page raises an event, which gives you a lot of power to ensure they get the experience you desire. Fortunately, you'll normally only need a small handful of events. Here's a few common ones (including the two we'll use when creating our game):
+
+- [click](https://developer.mozilla.org/en-US/docs/Web/API/Element/click_event): The user clicked on something, typically a button or hyperlink
+- [contextmenu](https://developer.mozilla.org/en-US/docs/Web/API/Element/contextmenu_event): The user clicked the right mouse button
+- [select](https://developer.mozilla.org/en-US/docs/Web/API/Element/select_event): The user highlighted some text
+- [input](https://developer.mozilla.org/en-US/docs/Web/API/Element/input_event): The user input some text
+
+## Creating the game
 
 We are going to create a game to explore how events work in JavaScript. Our game is going to test a player's typing skill, which is one of the most underrated skills all developers should have. We should all be practicing our typing! The general flow of the game will look like this:
 
@@ -28,9 +39,41 @@ We are going to create a game to explore how events work in JavaScript. Our game
 
 Let's build our game, and learn about events!
 
+### File structure
+
+We're going to need three total files: **index.html**, **script.js** and **style.css**. Let's start by setting those up to make life a little easier for us.
+
+- Create a new folder for your work by opening a console or terminal window and issuing the following command:
+
+```bash
+# Linux or macOS
+mkdir typing-game && cd typing-game
+
+# Windows
+md typing-game && cd typing game
+```
+
+- Open Visual Studio Code
+
+```bash
+code .
+```
+
+- Add three files to the folder in Visual Studio Code with the following names:
+  - index.html
+  - script.js
+  - style.css
+
 ## Create the user interface
 
-If we explore the requirements, we know we're going to need a handful of elements on our HTML page. We'll need somewhere to display the quote, any messages, a textbox for typing, and a start button. Each of those will need IDs so we can work with them in our JavaScript. We will also add references to the CSS and JavaScript files we're going to create.
+If we explore the requirements, we know we're going to need a handful of elements on our HTML page. This is sort of like a recipe, where we need some ingredients:
+
+- Somewhere to display the quote for the user to type
+- Somewhere to display any messages, like a success message
+- A textbox for typing
+- A start button
+
+Each of those will need IDs so we can work with them in our JavaScript. We will also add references to the CSS and JavaScript files we're going to create.
 
 Create a new file named **index.html**. Add the following HTML:
 
@@ -54,9 +97,20 @@ Create a new file named **index.html**. Add the following HTML:
 </html>
 ```
 
-### 🚀 HTML challenge
+### Launch the application
 
-Add other components to the page to make it look prettier
+It's always best to develop iteratively to see how things look. Let's launch our application. There's a wonderful extension for Visual Studio Code called [Live Server](https://marketplace.visualstudio.com/items?itemName=ritwickdey.LiveServer) which will both host your application locally and refresh the browser each time you save.
+
+- Install [Live Server](https://marketplace.visualstudio.com/items?itemName=ritwickdey.LiveServer) by following the link and clicking **Install**
+  - You will be prompted by the browser to open Visual Studio Code, and then by Visual Studio Code to perform the installation
+  - Restart Visual Studio Code if prompted
+- Once installed, in Visual Studio Code, click Ctl-Shift-P (or Cmd-Shift-P) to open the command pallate
+- Type **Live Server: Open with Live Server**
+  - Live Server will start hosting your application
+- Open a browser and navigate to **https://localhost:5500**
+- You should now see the page you created!
+
+Let's add some functionality.
 
 ---
 
@@ -80,7 +134,11 @@ Create a new file named **style.css** and add the following syntax.
 
 ### 🚀 CSS challenge
 
-Add other components to the page to make it look prettier
+When it comes to CSS you can layout your page however you might like. Take a little time and make the page look more appealing:
+
+- Choose a different font
+- Colorize the headers
+- Resize items
 
 ---
 
@@ -89,14 +147,25 @@ Add other components to the page to make it look prettier
 With our UI created, it's time to focus our attention on the JavaScript which will provide the logic. We're going to break this down into a handful of steps:
 
 - [Create the constants](#add-the-constants)
-- Event listener to start the game
-- Event listener to typing
+- [Event listener to start the game](#add-start-logic)
+- [Event listener to typing](#add-typing-logic)
 
 But first, create a new file named **script.js**.
 
 ### Add the constants
 
-We need an array with the list of all quotes, as we're going to randomly select one. We need an empty array to store all the words for the current quote, a space to store the index of the word the player is currently typing, and the time the player clicked start. Finally, we'll setup a few constants for the page elements we're going to interact with.
+We're going to need a few items to make our lives a little easier for programming. Again, similar to a recipe, here's what we'll need:
+
+- Array with the list of all quotes
+- Empty array to store all the words for the current quote
+- Space to store the index of the word the player is currently typing
+- The time the player clicked start
+
+We're also going to want references to the UI elements:
+
+- The textbox (**typed-value**)
+- The quote display (**quote**)
+- The message (**message**)
 
 ```javascript
 // inside script.js
@@ -259,3 +328,7 @@ Consider adding the more functionality
 ## Test your application
 
 You've made it to the end! The last step is to ensure our application works. Give it a shot! Don't worry if there are errors; **all developers** have errors. Examine the messages and debug as needed.
+
+Click on **start**, and start typing away! It should look a little like the animation we saw before.
+
+![Animation of the game in action](../demo.gif)
